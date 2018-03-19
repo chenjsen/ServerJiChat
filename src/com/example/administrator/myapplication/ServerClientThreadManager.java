@@ -1,4 +1,4 @@
-package jichat;
+package com.example.administrator.myapplication;
 
 import java.util.ArrayList;
 import java.util.HashMap;

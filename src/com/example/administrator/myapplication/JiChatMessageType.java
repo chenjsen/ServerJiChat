@@ -1,4 +1,4 @@
-package jichat;
+package com.example.administrator.myapplication;
 
 public class JiChatMessageType {
 	public static final String SUCCESS="1";//表明是否成功
