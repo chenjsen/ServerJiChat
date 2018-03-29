@@ -10,23 +10,18 @@ import java.net.Socket;
 
 public class ServerClientThread extends Thread{
 	public Socket s;
-	public ObjectInputStream ois;
-	public ObjectOutputStream oos;
 	
-	public ServerClientThread(Socket s,ObjectInputStream ois) {
-		this.ois = ois;
+	public ServerClientThread(Socket s) {
 		this.s = s;
 	}
 	
 	@Override
 	public void run() {
 		while(true) {
-			//ObjectInputStream ois = null;
+			ObjectInputStream ois = null;
 			JiChatMsg jcm = null;
-			//InputStream is = null;
 			try {
-				//is = s.getInputStream();
-				//ois=new ObjectInputStream(is);
+				ois=new ObjectInputStream(s.getInputStream());
 				jcm=(JiChatMsg) ois.readObject();
 				if(jcm.getType().equals(JiChatMessageType.COM_MES)) {
 					try{
@@ -34,6 +29,7 @@ public class ServerClientThread extends Thread{
 						ServerClientThread scc=ServerClientThreadManager.getClientThread(jcm.getReceiver());
 						ObjectOutputStream oos=new ObjectOutputStream(scc.s.getOutputStream());
 						//向接收人发送消息
+						System.out.println(jcm.getContent());
 						oos.writeObject(jcm);
 					}catch(Exception e){
 						e.printStackTrace();
